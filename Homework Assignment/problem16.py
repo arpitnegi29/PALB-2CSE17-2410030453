@@ -1,11 +1,20 @@
-def kth_smallest(arr, k):
-    arr.sort()
-    return arr[k - 1]
+def merge(intervals):
+    if not intervals:
+        return []
 
-arr1 = [10, 5, 4, 3, 48, 6, 2, 33, 53, 10]
-k1 = 4
-print(kth_smallest(arr1, k1))
+   
+    intervals.sort(key=lambda x: x[0])
 
-arr2 = [7, 10, 4, 3, 20, 15]
-k2 = 3
-print(kth_smallest(arr2, k2))
+    merged = [intervals[0]]
+
+   
+    for current in intervals[1:]:
+        prev = merged[-1]
+
+      
+        if current[0] <= prev[1]:
+            prev[1] = max(prev[1], current[1])
+        else:
+            merged.append(current)
+
+    return merged
