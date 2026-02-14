@@ -1,32 +1,26 @@
-def minimize_height_difference(arr, k):
-    n = len(arr)
-    if n == 1:
-        return 0
+def commonElements(arr1, arr2, arr3):
+    i = j = k = 0
+    n1, n2, n3 = len(arr1), len(arr2), len(arr3)
+    result = []
 
-    arr.sort()
-    ans = arr[-1] - arr[0]
+    while i < n1 and j < n2 and k < n3:
 
-    smallest = arr[0] + k
-    largest = arr[-1] - k
+   
+        if arr1[i] == arr2[j] == arr3[k]:
+            # Avoid duplicates in result
+            if not result or result[-1] != arr1[i]:
+                result.append(arr1[i])
 
-    for i in range(1, n - 1):
-        subtract = arr[i] - k
-        add = arr[i] + k
+            i += 1
+            j += 1
+            k += 1
 
-        if subtract >= smallest or add <= largest:
-            continue
-
-        if largest - subtract <= add - smallest:
-            smallest = subtract
+        
+        elif arr1[i] < arr2[j]:
+            i += 1
+        elif arr2[j] < arr3[k]:
+            j += 1
         else:
-            largest = add
+            k += 1
 
-    return min(ans, largest - smallest)
-
-arr1 = [1, 5, 8, 10]
-k1 = 2
-print(minimize_height_difference(arr1, k1))
-
-arr2 = [3, 9, 12, 16, 20]
-k2 = 3
-print(minimize_height_difference(arr2, k2))
+    return result if result else -1
